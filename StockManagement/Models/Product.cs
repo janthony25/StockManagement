@@ -8,6 +8,8 @@ namespace StockManagement.Models
         public int ProductId { get; set; }
         public string? ImageUrl { get; set; }
 
+        public string? Brand { get; set; }   
+
         [Required(ErrorMessage = "Product Name is required")]
         public string ProductName { get; set; }
         public int QuantityStock { get; set; }
@@ -19,6 +21,10 @@ namespace StockManagement.Models
         public decimal SellingPrice { get; set; }
         public DateTime DateAdded { get; set; } = DateTime.Now;
         public DateTime? LastUpdated { get; set; }
-        public string Status { get; set; }  
+        public string Status { get; set; }
+
+        // Connection
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }      
     }
 }

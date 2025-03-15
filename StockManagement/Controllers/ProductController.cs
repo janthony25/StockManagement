@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using StockManagement.Models.Dto;
 using StockManagement.Repository.IRepository;
 
 namespace StockManagement.Controllers
@@ -31,6 +32,27 @@ namespace StockManagement.Controllers
             {
                 _logger.LogError(ex, "An error occurred while fetching products.");
                 return StatusCode(500, "Internal Server Error.");
+            }
+        }
+
+        [HttpPost("add-item")]
+        public async Task<IActionResult> AddItem(AddProductDto dto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                await _repository.AddProductAsync(dto);
+                return Ok("Item successfuly added.");
+
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while adding new item.");
+                return StatusCode(500, "An error occurred while adding new item.");
             }
         }
     }
