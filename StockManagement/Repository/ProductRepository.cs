@@ -56,6 +56,7 @@ namespace StockManagement.Repository
             try
             {
                 var products = await _data.Products
+                            .OrderByDescending(p => p.DateAdded)
                             .Select(p => new ProductListDto
                             {
                                 ProductId = p.ProductId,

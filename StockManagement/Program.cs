@@ -20,6 +20,7 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(
 
 // Repositories
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 builder.Services.AddCors(options =>
 {
