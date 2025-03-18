@@ -6,5 +6,6 @@ namespace StockManagement.Repository.IRepository
     {
         Task<List<ProductListDto>> GetProductsAsync();
         Task AddProductAsync(AddProductDto dto);
+        Task<GetProductDto> GetProductByIdAsync(int id);
     }
 }

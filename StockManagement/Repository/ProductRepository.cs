@@ -51,6 +51,41 @@ namespace StockManagement.Repository
             }
         }
 
+        public async Task<GetProductDto> GetProductByIdAsync(int id)
+        {
+            try
+            {
+                var product = await _data.Products
+                            .Include(p => p.Category)
+                            .Where(p => p.ProductId == id)
+                            .Select(p => new GetProductDto
+                            {
+                                ProductId = p.ProductId,
+                                Brand = p.Brand,
+                                ProductName = p.ProductName,
+                                QuantityStock = p.QuantityStock,
+                                GettingPrice = p.GettingPrice,
+                                SellingPrice = p.SellingPrice,
+                                DateAdded = p.DateAdded,
+                                LastUpdated = p.LastUpdated,
+                                Status = p.Status,
+                                CategoryName = p.Category.CategoryName
+                            }).FirstOrDefaultAsync();
+
+                if (product == null)
+                {
+                    throw new KeyNotFoundException("Product not found.");
+                }
+
+                return product;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while fetching product details.");
+                throw;
+            }
+        }
+
         public async Task<List<ProductListDto>> GetProductsAsync()
         {
             try

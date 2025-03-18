@@ -55,5 +55,24 @@ namespace StockManagement.Controllers
                 return StatusCode(500, "An error occurred while adding new item.");
             }
         }
+
+        [HttpGet("item")]
+        public async Task<IActionResult> GetItemById(int id)
+        {
+            try
+            {
+                var product = await _repository.GetProductByIdAsync(id);
+
+                return Ok(product);
+            }
+            catch(KeyNotFoundException)
+            {
+                return NotFound("Product not found.");
+            }
+            catch(Exception)
+            {
+                return StatusCode(500, "An error occurred while fetcing item details.");
+            }
+        }
     }
 }
