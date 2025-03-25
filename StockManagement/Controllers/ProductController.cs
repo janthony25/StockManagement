@@ -56,7 +56,7 @@ namespace StockManagement.Controllers
             }
         }
 
-        [HttpGet("item")]
+        [HttpGet("item/{id}")]
         public async Task<IActionResult> GetItemById(int id)
         {
             try
@@ -67,6 +67,7 @@ namespace StockManagement.Controllers
             }
             catch(KeyNotFoundException)
             {
+                // test if github working already
                 return NotFound("Product not found.");
             }
             catch(Exception)
